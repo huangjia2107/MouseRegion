@@ -29,17 +29,18 @@
         <Setter Property="Background" Value="#00000000"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
-        <Setter Property="Canvas.Left" Value="{Binding X}"/>
+        <Setter Property="Canvas.Top" Value="{Binding Y,Mode=TwoWay}"/>
+        <Setter Property="Canvas.Left" Value="{Binding X,Mode=TwoWay}"/>
         <Setter Property="MinWidth" Value="5"/>
         <Setter Property="MinHeight" Value="5"/>
-        <Setter Property="Width" Value="{Binding Width}"/>
-        <Setter Property="Height" Value="{Binding Height}"/>
+        <Setter Property="Width" Value="{Binding Width,Mode=TwoWay}"/>
+        <Setter Property="Height" Value="{Binding Height,Mode=TwoWay}"/>
         <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="IsEnabled" Value="{Binding IsEditMode}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -56,10 +57,16 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="BorderBrush" Value="Red"/>
-                            <Setter TargetName="ItemDecorator" Property="ShowDecorator" Value="True"/>
-                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="true" />
+                                <Condition Property="IsEnabled"  Value="true" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters >
+                                <Setter Property="BorderBrush" Value="Red"/>
+                                <Setter TargetName="ItemDecorator" Property="ShowDecorator" Value="True"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
                         <EventTrigger RoutedEvent="Mouse.PreviewMouseDown">
                             <EventTrigger.Actions>
                                 <BeginStoryboard>
@@ -90,14 +97,9 @@
                                 </BeginStoryboard>
                             </EventTrigger.Actions>
                         </EventTrigger>
-                        <MultiTrigger >
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected"   Value="true" />
-                                <Condition Property="IsMouseOver"  Value="true" />
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.Setters > 
-                            </MultiTrigger.Setters>
-                        </MultiTrigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Cursor" Value="Arrow"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

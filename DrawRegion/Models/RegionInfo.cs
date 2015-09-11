@@ -42,5 +42,11 @@ namespace DrawRegion.Models
             set { _IsSelected = value; InvokePropertyChanged("IsSelected"); }
         }
 
+        private bool _IsEditMode;
+        public bool IsEditMode
+        {
+            get { return _IsEditMode; }
+            set { _IsEditMode = value; InvokePropertyChanged("IsEditMode"); }
+        }
     }
 }

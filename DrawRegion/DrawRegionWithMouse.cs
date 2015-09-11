@@ -35,7 +35,7 @@ namespace DrawRegion
                 return;
 
             startPoint = Mouse.GetPosition(element);
-            element.Cursor = Cursors.Cross;
+           // element.Cursor = Cursors.Cross;
             _regionParam=new RegionParam();
         }
 
@@ -55,7 +55,7 @@ namespace DrawRegion
         {
             startPoint = null;
             _regionParam = null;
-            element.Cursor = Cursors.Arrow;
+           // element.Cursor = Cursors.Arrow;
 
             if (regionAdorner != null && adornerLayer != null)
             {

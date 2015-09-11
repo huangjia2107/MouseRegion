@@ -52,6 +52,7 @@ namespace DrawRegion
                     if (regionSetting.Width > 20 && regionSetting.Height > 20)
                     {
                         regionSetting.IsSelected = true;
+                        regionSetting.IsEditMode = true;
                         regionCollection.Add(regionSetting);
                     }
 
@@ -90,11 +91,15 @@ namespace DrawRegion
             if (EditBtn.IsChecked == true)
             {
                 drawRegion = new DrawRegionWithMouse(RegionListBox);
+                RegionListBox.Cursor = Cursors.Cross;
+                regionCollection.ToList().ForEach(regionSetting => regionSetting.IsEditMode = true);
             }
             else
             {
                 drawRegion.Dispose();
                 drawRegion = null;
+                RegionListBox.Cursor = Cursors.Arrow;
+                regionCollection.ToList().ForEach(regionSetting => regionSetting.IsEditMode = false);
             }
         }
     }
